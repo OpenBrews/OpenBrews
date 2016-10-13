@@ -10,7 +10,8 @@
       'openbrews.myRecipes',
       'openbrews.editRecipe',
       'openbrews.viewRecipe',
-      'openbrews.recipeStore'
+      'openbrews.recipeStore',
+      'openbrews.recipeUtils'
     ])
 
   .constant('localStorageKey', "recipesInStorage")

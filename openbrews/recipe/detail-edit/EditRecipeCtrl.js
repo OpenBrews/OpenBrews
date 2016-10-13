@@ -10,9 +10,10 @@
     'openbrews.yeastDirective',
     'openbrews.otherIngredientDirective',
     'openbrews.noteDirective',
-    'openbrews.recipeStore'
+    'openbrews.recipeStore',
+    'openbrews.recipeUtils'
   ])
-    .controller('EditRecipeCtrl', ['$scope', '$state', 'RecipeStore', function($scope, $state, RecipeStore) {
+    .controller('EditRecipeCtrl', ['$scope', '$state', 'RecipeStore', 'RecipeUtils', function($scope, $state, RecipeStore) {
 
       const defaultRecipe = {
         name: "",
@@ -23,11 +24,18 @@
         estFermentationDays: 7,
         secondaryTimeDays: 0,
         mashEfficiency: 68,
+        ibu: 0,
         fermentables: [],
         hops: [],
         yeasts: [],
         others: [],
         notes: []
+      };
+
+      $scope.calcIBU = function() {
+          var og;
+          //TODO og = calcOG;
+          return RecipeUtils;
       };
 
       /* Add a new fermentable */
