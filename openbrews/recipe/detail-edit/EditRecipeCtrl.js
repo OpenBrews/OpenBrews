@@ -13,7 +13,7 @@
     'openbrews.recipeStore',
     'openbrews.breweryDB'
   ])
-    .controller('EditRecipeCtrl', ['$scope', '$state', 'RecipeStore', 'BreweryDB', '$http', '$filter', '$q', function($scope, $state, RecipeStore, BreweryDB, $http, $filter, $q) {
+    .controller('EditRecipeCtrl', ['$scope', '$state', 'RecipeStore', 'BreweryDB', 'RecipeUtils', '$http', '$filter', '$q', function($scope, $state, RecipeStore, BreweryDB, RecipeUtils, $http, $filter, $q) {
 
       const defaultRecipe = {
         name: "",
@@ -24,11 +24,17 @@
         estFermentationDays: 7,
         secondaryTimeDays: 0,
         mashEfficiency: 68,
+        ibu: 0,
         fermentables: [],
         hops: [],
         yeasts: [],
         others: [],
         notes: []
+      };
+
+      $scope.calcIBU = function() {
+          var og = RecipeUtils.calculateGravity($scope.recipe).og;
+          return RecipeUtils.calculateIbu($scope.recipe, og);
       };
 
       /* Add a new fermentable */
@@ -126,8 +132,8 @@
 
       /////////////////////////////////////////////////////////////
       // Smart Type Functions
-      /////////////////////////////////////////////////////////////  
-      
+      /////////////////////////////////////////////////////////////
+
       /* set the style selected */
       $scope.setStyle = function(item){
         $scope.recipe.style = item;
