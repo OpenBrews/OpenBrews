@@ -13,7 +13,7 @@
     'openbrews.recipeStore',
     'openbrews.recipeUtils'
   ])
-    .controller('EditRecipeCtrl', ['$scope', '$state', 'RecipeStore', 'RecipeUtils', function($scope, $state, RecipeStore) {
+    .controller('EditRecipeCtrl', ['$scope', '$state', 'RecipeStore', 'RecipeUtils', function($scope, $state, RecipeStore, RecipeUtils) {
 
       const defaultRecipe = {
         name: "",
@@ -33,9 +33,8 @@
       };
 
       $scope.calcIBU = function() {
-          var og;
-          //TODO og = calcOG;
-          return RecipeUtils;
+          var og = RecipeUtils.calculateGravity($scope.recipe).og;
+          return RecipeUtils.calculateIbu($scope.recipe, og);
       };
 
       /* Add a new fermentable */
