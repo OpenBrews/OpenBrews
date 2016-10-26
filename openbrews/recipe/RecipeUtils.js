@@ -101,6 +101,12 @@ angular.module('openbrews.recipeUtils', [])
     };
 
     this.calculateGravity = function (recipe) {
+        // original gravity, final gravity to be calculated.
+        // gravity is the "density" of the liquid; gravity of
+        // water is 1.0. So gravity of beer will be a little
+        // higher than this, and the original gravity (when
+        // more sugars are present) will be higher than the
+        // final gravity.
         var og, fg;
         var attenuation = recipe.yeasts.reduce(function (acc, yeast) {
             return acc + yeast.attenuation;
@@ -115,6 +121,9 @@ angular.module('openbrews.recipeUtils', [])
             attenuation = 75;
         }
 
+        // calculate final gravity given the attenuation of the yeast.
+        // Attenuation = % of sugars that the yeast 'consume'.
+        // Attenuation = [(og-fg)/(og-1)] x 100
         fg = 1 + ((100 - attenuation) / 100) * (og - 1);
 
         return {
